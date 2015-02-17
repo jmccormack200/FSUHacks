@@ -19,10 +19,10 @@ var updateDecade = function(d) {
 var updateTrack = function(new_track, news) {
 	if (news == true) {
 		var track_url = new_track;
-		art.innerHTML = 'News';
+		art.text('News');
 	} else {
 		var track_url = new_track.object.preview_url;
-		art.innerHTML = '<img src="' + new_track.object.image_url + '" width="64" height="64">';
+		art.html('<img src="' + new_track.object.image_url + '" width="128" height="128">');
 	}
 	track.pause();
 	track.src = track_url;
