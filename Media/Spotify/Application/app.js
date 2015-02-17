@@ -99,7 +99,6 @@ var PortOperations = {
 
                 nextChannel = data;
                 if (currentChannel != nextChannel) {
-                    soda.setDecade(currentChannel);
                     // channel changed
                     console.log('data received: ' + data);
                     // Request for a playlist
