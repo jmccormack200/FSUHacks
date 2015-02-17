@@ -41,7 +41,7 @@ reqVars = {
 }
 
 // PARAMETERS
-var PARAMETERS = '?fields=items(track(name,href,artists,id,preview_url,uri,album(images)))&limit=25&offset=0'
+var PARAMETERS = '?fields=items(track(name,href,artists,id,preview_url,uri,album(images)))&limit=10&offset=0'
 
 // TRACKS
 var tracks = []
@@ -387,10 +387,19 @@ app.get('/refresh_token', function(req, res) {
   });
 });
 
+app.get('/current_year', function(req,res){
+    res.send(currentChannel);
+});
+
 app.get('/next_track', function(req,res){
     
+    console.log('==================================================');
+    console.log('Get the next track');
+
     track_index++;
     
+    console.log('next track is ' + JSON.stringify(current_tracks[track_index]);
+
     res.send(current_tracks[track_index]);
 });
 
