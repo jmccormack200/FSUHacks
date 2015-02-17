@@ -5,10 +5,10 @@ var track = new Audio();
 var year = -1;
 var isSong = false;
 
-var API_URL = 'http://192.168.137.133:8888';
+var API_URL = 'http://192.168.137.243:8888';
 
 var YEARS = ['1920', '1930', '1940', '1950', '1960',
-			 '1970', '1980', '1990', '2010']
+	     '1970', '1980', '1990', '2000', '2010']
 
 var updateDecade = function(d) {
 	decade.removeClass();
