@@ -333,7 +333,7 @@ app.get('/callback', function(req, res) {
 
             // use the access token to access the Spotify Web API
             request.get(options, function(error, response, body) {
-              console.log(body);
+              //console.log(body);
             });
             
             // we can also pass the token to the browser to make requests from there
@@ -388,10 +388,20 @@ app.get('/refresh_token', function(req, res) {
 });
 
 app.get('/current_year', function(req,res){
-    res.send(currentChannel);
+    
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+    
+    console.log('==================================================');
+    console.log('Get the current year');
+    res.send(200, Message(true, currentChannel, []));
+    
 });
 
 app.get('/next_track', function(req,res){
+    
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
     
     console.log('==================================================');
     console.log('Get the next track');
@@ -406,65 +416,8 @@ app.get('/next_track', function(req,res){
     
     console.log('next track is ' + JSON.stringify(current_tracks[track_index]));
     
-    res.send(track);
+    res.send(200, Message(true, track, []));
 
-});
-
-/* Make a get request for the 20's playlist*/
-app.get('/getPlaylist', function(req,res){
-    
-    var YEAR_URL;
-    console.log('year = ' + req.query.year);
-    var year = req.query.year;
-    switch (year) {
-        case '1920':
-            YEAR_URL = TWENTIES_PLAYLIST_URL;
-            break;
-        case '1930':
-            YEAR_URL = THIRTIES_PLAYLIST_URL;
-            break;
-        case '1940':
-            YEAR_URL = FOURTIES_PLAYLIST_URL;
-            break;
-        case '1950':
-            YEAR_URL = FIFTIES_PLAYLIST_URL;
-            break;
-        case '1960':
-            YEAR_URL = SIXTIES_PLAYLIST_URL;
-            break;
-        case '1970':
-            YEAR_URL = SEVENTIES_PLAYLIST_URL;
-            break;
-        case '1980':
-            YEAR_URL = EIGHTIES_PLAYLIST_URL;
-            break;
-        case '1990':
-            YEAR_URL = NINETIES_PLAYLIST_URL;
-            break;
-        case '2000':
-            YEAR_URL = TWO_THOUSANDS_PLAYLIST_URL;
-            break;
-    }
-    
-    console.log('year is ' + YEAR_URL);
-    var options = {
-        url: YEAR_URL + PARAMETERS,
-        headers: {'Authorization': 'Bearer ' + my_access_token},
-        json: true
-    };
-    
-    // Makes a request to the spotify api
-    
-    request.get(options, function(error, response, body){
-        
-        if (error) {
-            
-        } else {
-            tracks = response.body.items;
-            res.send(Message(true, models.createTrackObjects(tracks), []));
-        }
-        
-    });
 });
 
 app.listen(8888, function(){
