@@ -398,7 +398,7 @@ app.get('/next_track', function(req,res){
 
     track_index++;
     
-    console.log('next track is ' + JSON.stringify(current_tracks[track_index]);
+    console.log('next track is ' + JSON.stringify(current_tracks[track_index]));
 
     res.send(current_tracks[track_index]);
 });
