@@ -411,7 +411,7 @@ app.get('/next_track', function(req,res){
     var track = current_tracks[track_index];
     
     while (track.preview_url == null) {
-        track = current_tracks[++track_index];    
+        track = current_tracks[++track_index % current_tracks.length];    
     }
     
     console.log('next track is ' + JSON.stringify(current_tracks[track_index]));
