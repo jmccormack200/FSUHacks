@@ -58,8 +58,8 @@ var nextTrack = function() {
 	$.ajax({
 		url: r,
 		dataType: 'jsonp',
-		success: updateTrack
-	});
+		success: updateTrack()
+	})
 };
 
 var checkYear = function() {
@@ -74,7 +74,6 @@ var checkYear = function() {
 var updateTrack = function(track) {
 	console.log(track);
 	unfuckClock();
-	track = $.parseJSON(track);
 	track = new Audio(track.preview_url);
 	track.play();
 };
