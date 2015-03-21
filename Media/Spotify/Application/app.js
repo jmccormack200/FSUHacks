@@ -41,7 +41,7 @@ reqVars = {
 }
 
 // PARAMETERS
-var PARAMETERS = '?fields=items(track(name,href,artists,id,preview_url,uri,album(images)))&limit=25&offset=0'
+var PARAMETERS = '?fields=items(track(name,href,artists,id,preview_url,uri,album(images)))&limit=10&offset=0'
 
 // TRACKS
 var tracks = []
