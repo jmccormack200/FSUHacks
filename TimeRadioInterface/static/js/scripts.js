@@ -4,6 +4,8 @@ var track = new Audio();
 var nc = null;
 var year;
 
+var API_URL = 'http://192.168.137.243:8888';
+
 var makeClock = function()
 {
     var roll = Math.floor(Math.random() * 100);
@@ -20,14 +22,14 @@ var makeClock = function()
     		return 'PO:LY';
     	default:
     		var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
-	    	text = possible.charAt(Math.floor(Math.random() * possible.length));
+	    	var text = possible.charAt(Math.floor(Math.random() * possible.length));
 		    text += possible.charAt(Math.floor(Math.random() * possible.length));
 		    text += ':';
 		    text += possible.charAt(Math.floor(Math.random() * possible.length));
 		    text += possible.charAt(Math.floor(Math.random() * possible.length));
 		    return text;
     }
-}
+};
 
 var fuckClock = function() {
 	if (nc === null) {
@@ -36,42 +38,45 @@ var fuckClock = function() {
 			clock.text(makeClock());
 		}, 100);
 	}
-}
+};
 
 var unfuckClock = function() {
 	clearInterval(nc);
 	nc = null;
 	clock.text('12:00');
 	clock.addClass('blink');
-}
+};
 
 var updateDecade = function(d) {
 	decade.removeClass();
 	decade.addClass('d'+d+'s');
 	decade.text(d+'s');
-}
+};
 
 var nextTrack = function() {
+	var r = API_URL + '/next_track';
 	$.ajax({
-		url: 'http://localhost:3000/next_track',
+		url: r,
 		dataType: 'jsonp',
-		success: updateTrack
-	});
-}
+		success: updateTrack()
+	})
+};
 
 var checkYear = function() {
+	var r = API_URL + '/current_year';
 	$.ajax({
-		url: 'http://localhost:3000/current_year',
+		url: r,
 		dataType: 'jsonp',
 		success: updateYear
 	});
-}
+};
 
 var updateTrack = function(track) {
+	console.log(track);
 	unfuckClock();
 	track = new Audio(track.preview_url);
 	track.play();
-}
+};
 
 var updateYear = function(new_year) {
 	if (new_year !== year) {
@@ -79,7 +84,7 @@ var updateYear = function(new_year) {
 		decade.text(year);
 		nextTrack();
 	}
-}
+};
 
 $('#skip').on('click', function() {
 	$(this).css('color', 'red');
@@ -93,6 +98,6 @@ $('#skip').on('click', function() {
 	return;
 });
 
-window.onload = function() {
-	window.setInterval(checkYear, 1000);
-}
+//window.onload = function() {
+//	window.setInterval(checkYear, 1000);
+//}
