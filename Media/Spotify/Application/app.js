@@ -41,7 +41,7 @@ reqVars = {
 }
 
 // PARAMETERS
-var PARAMETERS = '?fields=items(track(name,href,artists,id,preview_url,uri,album(images)))&limit=25&offset=0'
+var PARAMETERS = '?fields=items(track(name,href,artists,id,preview_url,uri,album(images)))&limit=10&offset=0'
 
 // TRACKS
 var tracks = []
@@ -232,10 +232,6 @@ var playlist = {
                 current_tracks = models.createTrackObjects(tracks);
                 track_index = 0;
                 console.log(JSON.stringify(current_tracks));
-                gpiopins.write(notifyPin, true, function(err){
-                    if (err) {}
-                });
-                PortOperations.write(current_tracks[track_index]);
             }
 
         });
