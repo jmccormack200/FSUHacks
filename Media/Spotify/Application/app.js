@@ -99,7 +99,6 @@ var PortOperations = {
 
                 nextChannel = data;
                 if (currentChannel != nextChannel) {
-                    soda.setDecade(currentChannel);
                     // channel changed
                     console.log('data received: ' + data);
                     // Request for a playlist
@@ -392,16 +391,19 @@ app.get('/refresh_token', function(req, res) {
   });
 });
 
+app.get('/current_year', function(req,res){
+    res.send(currentChannel);
+});
+
 app.get('/next_track', function(req,res){
     
+    console.log('==================================================');
+    console.log('Get the next track');
+
     track_index++;
     
-    gpiopins.write(notifyPin, true, function(err){
-        if (err) {}
-    });
-    
-    PortOperations.write(current_tracks[track_index]);
-    
+    console.log('next track is ' + JSON.stringify(current_tracks[track_index]);
+
     res.send(current_tracks[track_index]);
 });
 
