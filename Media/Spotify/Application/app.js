@@ -405,13 +405,15 @@ app.get('/next_track', function(req,res){
     
     console.log('==================================================');
     console.log('Get the next track');
-
-    track_index++;
     
-    var track = current_tracks[track_index];
+    var track = current_tracks[track_index++];
     
-    while (track.preview_url == null) {
-        track = current_tracks[++track_index % current_tracks.length];    
+    console.log('track_index is ' + track_index);
+    
+    while (!track.preview_url) {
+        var index = track_index++ % current_tracks.length;
+        console.log('index is ' + index);
+        track = current_tracks[index];    
     }
     
     console.log('next track is ' + JSON.stringify(current_tracks[track_index]));
