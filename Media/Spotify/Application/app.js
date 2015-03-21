@@ -233,10 +233,6 @@ var playlist = {
                 current_tracks = models.createTrackObjects(tracks);
                 track_index = 0;
                 console.log(JSON.stringify(current_tracks));
-                gpiopins.write(notifyPin, true, function(err){
-                    if (err) {}
-                });
-                PortOperations.write(current_tracks[track_index]);
             }
 
         });
@@ -395,12 +391,6 @@ app.get('/refresh_token', function(req, res) {
 app.get('/next_track', function(req,res){
     
     track_index++;
-    
-    gpiopins.write(notifyPin, true, function(err){
-        if (err) {}
-    });
-    
-    PortOperations.write(current_tracks[track_index]);
     
     res.send(current_tracks[track_index]);
 });
