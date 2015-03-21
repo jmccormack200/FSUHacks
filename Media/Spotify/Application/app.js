@@ -41,7 +41,7 @@ reqVars = {
 }
 
 // PARAMETERS
-var PARAMETERS = '?fields=items(track(name,href,artists,id,preview_url,uri,album(images)))&limit=10&offset=0'
+var PARAMETERS = '?fields=items(track(name,href,artists,id,preview_url,uri,album(images)))&limit=15&offset=0'
 
 // TRACKS
 var tracks = []
@@ -232,7 +232,7 @@ var playlist = {
                 tracks = response.body.items;
                 current_tracks = models.createTrackObjects(tracks);
                 track_index = 0;
-                console.log(JSON.stringify(current_tracks));
+                //console.log(JSON.stringify(current_tracks));
             }
 
         });
@@ -392,7 +392,13 @@ app.get('/next_track', function(req,res){
     
     track_index++;
     
-    res.send(current_tracks[track_index]);
+    var track = current_tracks[track_index];
+    
+    while (track.preview_url == null) {
+        track = current_tracks[++track_index];    
+    }
+    
+    res.send(track);
 });
 
 /* Make a get request for the 20's playlist*/
