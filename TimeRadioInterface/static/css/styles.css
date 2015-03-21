@@ -1,0 +1,73 @@
+* {
+	/*cursor: none;*/
+	padding: 0;
+	margin: 0;
+}
+
+body {
+	font-size: 56pt;
+	font-family: sans-serif;
+	padding: 0;
+}
+
+div#container {
+  width: 300px;
+  height: 240px;
+  display: block;
+  position: relative;
+  padding-left: 20px;
+}
+
+div#container::after {
+  content: "";
+  opacity: 0.25;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  position: absolute;
+  z-index: -1;   
+}
+
+/* Totally sweet font shit right here, bitches */
+.d1920s, .d1930s, .d1940s, .d1950s { font-family: TimesNewRoman,"Times New Roman",Times,Baskerville,Georgia,serif; }
+.d1960s, .d1970s { font-family: 'Indie Flower', cursive; }
+.d1980s, .d1990s { font-family: "Courier New",Courier,"Lucida Sans Typewriter","Lucida Typewriter",monospace; }
+.d2000s, .d2010s { font-family: "Trebuchet MS","Lucida Grande","Lucida Sans Unicode","Lucida Sans",Tahoma,sans-serif; }
+
+#clock {
+	font-family: "Lucida Console","Lucida Sans Typewriter",monaco,"Bitstream Vera Sans Mono",monospace;
+	font-size: 24pt;
+	position:absolute;
+    bottom: -100;
+    right: 70%;
+    padding-top: 2.5em;
+}
+
+.blink {
+	animation: blink 1s steps(5, start) infinite;
+	-webkit-animation: blink 1s steps(5, start) infinite;
+}
+@keyframes blink {
+	to {
+		visibility: hidden;
+	}
+}
+@-webkit-keyframes blink {
+	to {
+		visibility: hidden;
+	}
+}
+
+#decade { }
+
+#skip {
+	position: absolute;
+    bottom: -300;
+    right: 25px;
+    padding-top: 0.26em;
+}
+
+.box {
+	position: relative;
+}

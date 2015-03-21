@@ -21,6 +21,7 @@ var my_access_token;
 var my_refresh_token;
 
 var current_tracks;
+var track_index;
 
 // URLS
 var TWENTIES_PLAYLIST_URL = 'https://api.spotify.com/v1/users/aerocarl/playlists/2HemUjvtkZIawAAQuiYJij/tracks';
@@ -98,6 +99,7 @@ var PortOperations = {
 
                 nextChannel = data;
                 if (currentChannel != nextChannel) {
+                    soda.setDecade(currentChannel);
                     // channel changed
                     console.log('data received: ' + data);
                     // Request for a playlist
@@ -219,6 +221,7 @@ var playlist = {
             } else {
                 tracks = response.body.items;
                 current_tracks = models.createTrackObjects(tracks);
+                track_index = 0;
                 console.log(JSON.stringify(current_tracks));
             }
 
@@ -371,6 +374,11 @@ app.get('/refresh_token', function(req, res) {
       });
     }
   });
+});
+
+app.get('/next_track', function(req,res){
+    track_index++;
+    res.send(current_tracks[track_index]);
 });
 
 /* Make a get request for the 20's playlist*/
