@@ -10,45 +10,6 @@ var API_URL = 'http://192.168.137.133:8888';
 var YEARS = ['1920', '1930', '1940', '1950', '1960',
 			 '1970', '1980', '1990', '2010']
 
-/*var makeClock = function()
-{
-    var roll = Math.floor(Math.random() * 100);
-    switch (roll) {
-    	case 1:
-    		return 'CO:DE';
-    	case 2:
-    		return 'GA:ME';
-    	case 3:
-    		return 'HA:CK';
-    	case 4:
-    		return 'PO:LY';
-    	default:
-    		var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
-	    	var text = possible.charAt(Math.floor(Math.random() * possible.length));
-		    text += possible.charAt(Math.floor(Math.random() * possible.length));
-		    text += ':';
-		    text += possible.charAt(Math.floor(Math.random() * possible.length));
-		    text += possible.charAt(Math.floor(Math.random() * possible.length));
-		    return text;
-    }
-};
-
-var fuckClock = function() {
-	if (nc === null) {
-		clock.removeClass('blink');
-		nc = window.setInterval(function() {
-			clock.text(makeClock());
-		}, 50);
-	}
-};
-
-var unfuckClock = function() {
-	clearInterval(nc);
-	nc = null;
-	clock.text('12:00');
-	clock.addClass('blink');
-};*/
-
 var updateDecade = function(d) {
 	decade.removeClass();
 	decade.addClass('d'+d+'s');
@@ -117,7 +78,6 @@ $('#skip').on('click', function() {
 	}, 50);
 
 	$('#track').remove();
-	//fuckClock();
 	nextTrack();
 
 	return;
