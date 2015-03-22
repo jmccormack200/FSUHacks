@@ -3,6 +3,7 @@ var clock = $('#clock');
 var nc = null;
 var track = new Audio();
 var year = -1;
+var isSong = false;
 
 var API_URL = 'http://192.168.137.133:8888';
 
@@ -54,8 +55,12 @@ var updateDecade = function(d) {
 	decade.text(d+'s');
 };
 
-var updateTrack = function(new_track) {
-	var track_url = new_track.object.preview_url;
+var updateTrack = function(new_track, news) {
+	if (news == true) {
+		var track_ur = new_track;
+	} else {
+		var track_url = new_track.object.preview_url;
+	}
 	unfuckClock();
 	track.pause();
 	track.src = track_url;
@@ -78,12 +83,21 @@ var nextTrack = function() {
 		track.stop();
 		track = null;
 	}
-	var r = API_URL + '/next_track';
-	$.ajax({
-		url: r,
-		dataType: 'json',
-		success: updateTrack,
-	});
+
+	if (isSong) {
+		// Load some news
+		isSong = false;
+
+	} else {
+		// Load a song
+		isSong = true;
+		var r = API_URL + '/next_track';
+		$.ajax({
+			url: r,
+			dataType: 'json',
+			success: updateTrack,
+		});
+	}
 };
 
 var checkYear = function() {
