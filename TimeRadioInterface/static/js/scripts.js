@@ -67,7 +67,7 @@ var updateYear = function(new_year) {
 	console.log(new_year + ' == ' + year);
 	if (new_year !== year) {
 		year = new_year;
-		decade.text(YEARS[year]);
+		updateDecade(YEARS[year]);
 		nextTrack();
 	}
 };
