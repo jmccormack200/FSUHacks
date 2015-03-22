@@ -19,6 +19,7 @@ URLs = {
  * of archived newscasts, ordered by date.
  */
 var retrieveArchive = function (decade) {
+	console.log('News for: ' + decade);
 	if (typeof(URLs[decade]) == 'object') {
 		var url = URLs[decade][Math.floor(Math.random() * URLs[decade].length)];
 	} else if (URLs[decade].length == 0) {
@@ -26,6 +27,8 @@ var retrieveArchive = function (decade) {
 	} else {
 		var url = URLs[decade];
 	}
+
+	console.log(url);
 
 	var req = $.ajax({
 		dataType: 'jsonp',
@@ -46,5 +49,6 @@ var parseResults = function (data) {
 				break;
 		}
 	}
-	updateTrack(sounds[Math.floor(Math.random() * sounds.length)], true);
+	var choice = sounds[Math.floor(Math.random() * sounds.length)]
+	updateTrack(choice, true);
 }

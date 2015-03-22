@@ -57,7 +57,7 @@ var updateDecade = function(d) {
 
 var updateTrack = function(new_track, news) {
 	if (news == true) {
-		var track_ur = new_track;
+		var track_url = new_track;
 	} else {
 		var track_url = new_track.object.preview_url;
 	}
@@ -87,7 +87,8 @@ var nextTrack = function() {
 	if (isSong) {
 		// Load some news
 		isSong = false;
-
+		console.log(YEARS[year]);
+		retrieveArchive(YEARS[year]);
 	} else {
 		// Load a song
 		isSong = true;
