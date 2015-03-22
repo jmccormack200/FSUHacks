@@ -37,7 +37,7 @@ module.exports = {
             //console.log('Track name: ' + track['name']);
             //console.log('Track preview: ' + track.preview_url);
             //console.log('Track album = ' + JSON.stringify(track.album));
-            tracks_objects.push(track_object(track.name, track.preview_url, track.album.images[1].url, track.artists[0].name));
+            tracks_objects.push(track_object(track.name, track.preview_url, track.album.images[2].url, track.artists[0].name));
         }
         
         return tracks_objects;
