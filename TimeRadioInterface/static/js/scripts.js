@@ -1,5 +1,5 @@
 var decade = $('#decade');
-var clock = $('#clock');
+var art = $('#art');
 var nc = null;
 var track = new Audio();
 var year = -1;
@@ -10,7 +10,7 @@ var API_URL = 'http://192.168.137.133:8888';
 var YEARS = ['1920', '1930', '1940', '1950', '1960',
 			 '1970', '1980', '1990', '2010']
 
-var makeClock = function()
+/*var makeClock = function()
 {
     var roll = Math.floor(Math.random() * 100);
     switch (roll) {
@@ -47,7 +47,7 @@ var unfuckClock = function() {
 	nc = null;
 	clock.text('12:00');
 	clock.addClass('blink');
-};
+};*/
 
 var updateDecade = function(d) {
 	decade.removeClass();
@@ -61,7 +61,7 @@ var updateTrack = function(new_track, news) {
 	} else {
 		var track_url = new_track.object.preview_url;
 	}
-	unfuckClock();
+	art.innerHTML = '<img src="' + new_track.object.image_url + '" width="64" height="64">'
 	track.pause();
 	track.src = track_url;
 	track.play();
@@ -117,7 +117,7 @@ $('#skip').on('click', function() {
 	}, 50);
 
 	$('#track').remove();
-	fuckClock();
+	//fuckClock();
 	nextTrack();
 
 	return;
@@ -127,4 +127,5 @@ window.onload = function() {
 	checkYear();
 	window.setInterval(checkYear, 2000);
 	nextTrack();
+	window.setInterval(nextTrack, 25000);
 }
