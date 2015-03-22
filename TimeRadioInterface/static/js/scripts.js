@@ -1,24 +1,25 @@
 var decade = $('#decade');
 var clock = $('#clock');
-var track = new Audio();
 var nc = null;
-var year;
+var track = new Audio();
+var year = -1;
 
-var API_URL = 'http://192.168.137.243:8888';
+var API_URL = 'http://192.168.137.133:8888';
+
+var YEARS = ['1920', '1930', '1940', '1950', '1960',
+			 '1970', '1980', '1990', '2010']
 
 var makeClock = function()
 {
     var roll = Math.floor(Math.random() * 100);
     switch (roll) {
     	case 1:
-    		return 'FU:CK';
+    		return 'CO:DE';
     	case 2:
-    		return 'SH:IT';
-    	case 3:
     		return 'GA:ME';
-    	case 4:
+    	case 3:
     		return 'HA:CK';
-    	case 5:
+    	case 4:
     		return 'PO:LY';
     	default:
     		var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
@@ -36,7 +37,7 @@ var fuckClock = function() {
 		clock.removeClass('blink');
 		nc = window.setInterval(function() {
 			clock.text(makeClock());
-		}, 100);
+		}, 50);
 	}
 };
 
@@ -53,37 +54,45 @@ var updateDecade = function(d) {
 	decade.text(d+'s');
 };
 
+var updateTrack = function(new_track) {
+	var track_url = new_track.object.preview_url;
+	unfuckClock();
+	track.pause();
+	track.src = track_url;
+	track.play();
+};
+
+var updateYear = function(new_year) {
+	new_year = parseInt(new_year.object);
+	console.log(new_year + ' == ' + year);
+	if (new_year !== year) {
+		year = new_year;
+		updateDecade(YEARS[year]);
+		nextTrack();
+	}
+};
+
 var nextTrack = function() {
+	var track = $('#track');
+	if (track !== undefined) {
+		track.stop();
+		track = null;
+	}
 	var r = API_URL + '/next_track';
 	$.ajax({
 		url: r,
-		dataType: 'jsonp',
-		success: updateTrack()
-	})
+		dataType: 'json',
+		success: updateTrack,
+	});
 };
 
 var checkYear = function() {
 	var r = API_URL + '/current_year';
 	$.ajax({
 		url: r,
-		dataType: 'jsonp',
-		success: updateYear
+		dataType: 'json',
+		success: updateYear,
 	});
-};
-
-var updateTrack = function(track) {
-	console.log(track);
-	unfuckClock();
-	track = new Audio(track.preview_url);
-	track.play();
-};
-
-var updateYear = function(new_year) {
-	if (new_year !== year) {
-		year = new_year;
-		decade.text(year);
-		nextTrack();
-	}
 };
 
 $('#skip').on('click', function() {
@@ -92,12 +101,15 @@ $('#skip').on('click', function() {
 		$('#skip').css('color', 'black');
 	}, 50);
 
+	$('#track').remove();
 	fuckClock();
 	nextTrack();
 
 	return;
 });
 
-//window.onload = function() {
-//	window.setInterval(checkYear, 1000);
-//}
+window.onload = function() {
+	checkYear();
+	window.setInterval(checkYear, 2000);
+	nextTrack();
+}
